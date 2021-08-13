@@ -1,0 +1,31 @@
+::method [GET]::
+description: get the saved pokemon list (from database).
+route "${server_main_route}/api/pokemon"
+
+return fields:
+- idsaved, id, name, base_experience, height, img, abilities, moves, stats
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+::method [POST]::
+description: save the pokemon to list (on database)
+route "${server_main_route}/api/pokemon"
+Note: send data in format json ("{}")
+save data:
+- idsaved (auto on database)
+- id(int) -required
+- name(string) -required
+- base_experience(int) -no required
+- height(int) -no required
+- img(string) -required
+- abilities(string) -no required
+- moves(string) -no required
+- stats(string) -no required
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+::method [DELETE]::
+description: delete pokemon to list (from database)
+route "${server_main_route}/api/pokemon/{id}"
+{id} => type int
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+YOU CAN TRY IT ON Postman APP.
