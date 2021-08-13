@@ -31,8 +31,7 @@ namespace api_rest_pokemon
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                     builder =>
                                     {
-                                        builder.WithOrigins("http://localhost:8080/",
-                                                            "http://localhost/");
+                                        builder.AllowAnyOrigin();
                                     });
             });
 
