@@ -15,6 +15,7 @@ namespace api_rest_pokemon
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,6 +26,16 @@ namespace api_rest_pokemon
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                    builder =>
+                                    {
+                                        builder.WithOrigins("http://localhost:8080/",
+                                                            "http://localhost/");
+                                    });
+            });
+
             services.AddControllers();
         }
 
@@ -40,11 +51,14 @@ namespace api_rest_pokemon
 
             app.UseRouting();
 
+            app.UseCors();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers()
+                        .RequireCors(MyAllowSpecificOrigins);
             });
         }
     }
