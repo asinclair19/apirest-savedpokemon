@@ -15,7 +15,8 @@ namespace api_rest_pokemon
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        private readonly string _MyCors = "MyCors";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,10 +29,12 @@ namespace api_rest_pokemon
         {
             services.AddCors(options =>
             {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
+                options.AddPolicy(name: _MyCors,
                                     builder =>
                                     {
-                                        builder.AllowAnyOrigin();
+                                       //builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+                                        builder.AllowAnyOrigin()
+                                        .AllowAnyHeader().AllowAnyMethod();
                                     });
             });
 
@@ -50,14 +53,13 @@ namespace api_rest_pokemon
 
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors(_MyCors);
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers()
-                        .RequireCors(MyAllowSpecificOrigins);
+                endpoints.MapControllers();
             });
         }
     }

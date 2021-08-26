@@ -41,7 +41,7 @@ namespace api_rest_pokemon.Controllers
                     " VALUES(@id,@name,@base_experience,@height,@img,@abilities,@moves,@stats)";
                 result = database.Execute(sql_query, model);
             }
-            return Ok(result);
+            return Ok("Pokemon saved successfully.");
 
         }
 
@@ -55,7 +55,7 @@ namespace api_rest_pokemon.Controllers
                 var sql_query = $"DELETE FROM pokemon WHERE id={id}";
                 result = database.Execute(sql_query);
             }
-            return Ok(result);
+            return Ok("Pokemon was deleted from the save list successfully.");
 
         }
     }
